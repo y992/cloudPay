@@ -6,19 +6,20 @@
     <link rel="stylesheet" href="./css/Reset.css">
     <link rel="stylesheet" href="./css/index3.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="js/jquery-3.2.1.js"></script>
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/jquery-3.2.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.js"></script>
 
 </head>
 <script>
     $(document).ready(function(){
-
+//  货币选择
         $("#btn-choose").click(function(){
             $(".type_ofCurrency").show();
+            $("#mask").css("height",$(document).height());
+            $("#mask").css("width",$(document).width());
             $("#mask").show();
         });
         $("#close").click(function () {
@@ -37,7 +38,7 @@
             $("#mask").hide();
         })
 
-        //选择银行
+        //    选择银行
         var isExpend = false;
         $("#choose_btn").click(function(){
             isExpend = !isExpend;
@@ -48,27 +49,21 @@
                 $("#choose_btn").css("background-image", "url('./img/down.png')");
             }
         });
-//选中状态
 
-        var old = null; //用来保存原来的对象
 
-        
-        $("#imgList li").each(function(){//循环绑定事件
-            if(this.checked){
-                old = this; //如果当前对象选中，保存该对象
+//        选中状态
+        $(".bankContent img").bind("click",function(){
+//            $(this).css("border","1px solid red").siblings();
+            $('.bankContent img').removeClass("on");
+            if($(this).hasClass("on")){
+                $(this).removeClass("on");
+            }else{
+                $(this).addClass("on");
             }
-            this.onclick = function(){
-                console.log("dafdf");
-                if(this == old){//如果点击的对象原来是选中的，取消选中
-                    this.css("border", "3px solid #000000");
-                    this.checked = false;
-                    old = null;
-                } else{
-                    old = this;
-                }
-            }
-        });
-//        表单验证
+
+        })
+
+// 表单验证
         $("#registerForm").bootstrapValidator({
             message: "",
             feedbackIcons: {
@@ -78,7 +73,7 @@
                 email: {
                     validators: {
                         notEmpty: {
-                            message: '* 邮箱是必填项'
+                            message: '* 邮箱不能为空'
                         },
                         emailAddress: {
                             message: '* 邮箱格式不正确'
@@ -108,7 +103,8 @@
                             min: 1,
                             max: 16,
                             message: '* 客户姓名长度在1到16位之间'
-                        }
+                        },
+
                     }
                 },
                 sum: {
@@ -116,14 +112,15 @@
                         notEmpty: {
                             message: '* 金额不能为空'
                         },
-
                     }
                 },
             }
         });
+
+
     });
 </script>
-<body style="background-color: #f7f8f7">
+<body>
 <!--top-->
 <div id="overall-header" class="container clearfix">
     <div id="header-logo" class="header-logo-gb"><a href="/"><span>福汇官网</span></a></div>
@@ -176,7 +173,7 @@
             <div class="form-group "style="margin-left: 10px">
                 <!--<label class="col-sm-2 control-label"  for="formGroupInputName">客户姓名</label>-->
                 <h3>客户姓名</h3>
-                <div class="col-sm-10">
+                <div class="col-sm-11">
                     <span class="icon-bg form-control-feedback"><img src="./img/icon-name.png" alt=""></span>
                     <input class="form-control" type="text" name="Username" id="formGroupInputName" placeholder="姓名">
                 </div>
@@ -184,7 +181,7 @@
             <div class="form-group form-group-sm"style="margin-left: 10px">
                 <!--<label class="col-sm-2 control-label" for="formGroupInputNumber">客户号</label>-->
                 <h3>客户号</h3>
-                <div class="col-sm-10">
+                <div class="col-sm-11">
                     <span class="icon-bg form-control-feedback"><img src="./img/icon-n.png" alt=""></span>
                     <input class="form-control" type="text" name="count" id="formGroupInputNumber" placeholder="账号">
                 </div>
@@ -192,7 +189,7 @@
             <div class="form-group form-group-sm"style="margin-left: 10px">
                 <!--<label class="col-sm-2 control-label" for="formGroupInputEmail">注册邮箱</label>-->
                 <h3>注册邮箱地址</h3>
-                <div class="col-sm-10">
+                <div class="col-sm-11">
                     <span class="icon-bg form-control-feedback"><img src="./img/icon-email.png" alt=""></span>
                     <input class="form-control" type="email" name="email" id="formGroupInputEmail" placeholder="邮箱">
                 </div>
@@ -203,7 +200,7 @@
                 <div class="col-sm-2">
                     <button type="button" id="btn-choose"><a id="choose_value">RMB</a><img src="./img/icon-d2.png" alt=""></button>
                 </div>
-                <div class="col-sm-8" style="margin-left: -15px;width: 68%">
+                <div class="col-sm-11" style="margin-left: -15px;width: 76%">
                     <span class="icon-bg form-control-feedback"><img src="./img/icon-m.png" alt=""></span>
                     <input class="form-control" type="text" name="sum" id="formGroupInputMoney" placeholder="交易金额"style="">
                 </div>
@@ -212,7 +209,7 @@
                 <!--<label class="col-sm-2 control-label">附言</label>-->
                 <h3>附言</h3>
 
-                <div class="col-sm-10">
+                <div class="col-sm-11">
                     <textarea class="form-control" rows="5"></textarea>
                 </div>
             </div>
@@ -242,7 +239,7 @@
                         <li><img src="./img/bank.png" /></li>
                         <li><img src="./img/bank.png" /></li>
                     </ul>
-                    <ul class="imgList" style="display:none;">
+                    <ul class="imgList" style="display:none;margin-top: -10px">
                         <li><img src="./img/bank.png" /></li>
                         <li><img src="./img/bank.png" /></li>
                         <li><img src="./img/bank.png" /></li>
@@ -253,15 +250,13 @@
                         <li><img src="./img/bank.png" /></li>
                     </ul>
 
-                    <div id="choose_btn">
-                        <!--<img src="./img/down.png" alt="" class="icon_btn">-->
-                    </div>
+                    <div id="choose_btn"></div>
 
                 </div>
 
                 <div id="btn-bank">
-                    <input type="button" id="cancel"value="取消"/>
-                    <input type="submit" id="define" value="确定"/>
+                    <input type="button" id="cancel"value="取消" style=" background-color: #3493a8;color: #ffffff"/>
+                    <input type="submit" id="define" value="确定" style="background-color: #5abe71;color: #ffffff"/>
                 </div>
             </div>
         </form>
